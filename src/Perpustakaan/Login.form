@@ -54,9 +54,9 @@
                   </Group>
                   <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnSimpan" alignment="0" pref="214" max="32767" attributes="0"/>
+                      <Component id="btnSimpan" pref="214" max="32767" attributes="0"/>
+                      <Component id="txtId_Petugas" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="45" max="32767" attributes="0"/>
               </Group>
@@ -68,12 +68,12 @@
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtNIM" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtId_Petugas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtNama" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnSimpan" min="-2" max="-2" attributes="0"/>
@@ -94,8 +94,6 @@
             <Property name="text" type="java.lang.String" value="Id_Petugas"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
-        </Component>
         <Component class="javax.swing.JLabel" name="txtNama">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -106,8 +104,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Password"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
         </Component>
         <Component class="javax.swing.JButton" name="btnSimpan">
           <Properties>
@@ -121,6 +117,16 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSimpanActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtId_Petugas">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtId_PetugasActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtPassword">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPasswordActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

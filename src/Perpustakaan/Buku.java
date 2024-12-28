@@ -10,11 +10,11 @@ package Perpustakaan;
  */
 public class Buku {
     private String id_buku;
-    private int judul_buku;
+    private String judul_buku;
     private String penggarang;
     private int tahun_terbit;
 
-    public Buku(String id_buku, int judul_buku, String penggarang, int tahun_terbit) {
+    public Buku(String id_buku, String judul_buku, String penggarang, int tahun_terbit) {
         this.id_buku = id_buku;
         this.judul_buku = judul_buku;
         this.penggarang = penggarang;
@@ -25,7 +25,7 @@ public class Buku {
         return id_buku;
     }
 
-    public int getJudul_buku() {
+    public String getJudul_buku() {
         return judul_buku;
     }
 
@@ -41,7 +41,7 @@ public class Buku {
         this.id_buku = id_buku;
     }
 
-    public void setJudul_buku(int judul_buku) {
+    public void setJudul_buku(String judul_buku) {
         this.judul_buku = judul_buku;
     }
 

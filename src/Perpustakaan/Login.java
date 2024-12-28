@@ -4,18 +4,19 @@
  */
 package Perpustakaan;
 
+import java.sql.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author LENOVO
  */
 public class Login extends javax.swing.JFrame {
-    private TampilanUtama parent;
-    /**
-     * Creates new form Login
-     */
+    private DefaultTableModel tableModel;
+    
     public Login() {
         initComponents();
-        this.parent = parent;
     }
 
     /**
@@ -29,10 +30,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txtNIM = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         txtNama = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         btnSimpan = new javax.swing.JButton();
+        txtId_Petugas = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +56,18 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txtId_Petugas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtId_PetugasActionPerformed(evt);
+            }
+        });
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -66,9 +79,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(txtNama))
                 .addGap(87, 87, 87)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                    .addComponent(txtId_Petugas)
+                    .addComponent(txtPassword))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -77,11 +90,11 @@ public class Login extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNIM)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtId_Petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNama)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSimpan)
                 .addContainerGap(55, Short.MAX_VALUE))
@@ -104,40 +117,53 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        // TODO add your handling code here:
+        String idPetugas = txtId_Petugas.getText();
+        String password = txtPassword.getText();
+
+        if (idPetugas.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Id_Petugas dan Password harus diisi!");
+        } else {
+            try {
+                Connection con = DatabaseMahasiswa.getConnection(); // Pastikan method ini tersedia
+
+                // Periksa apakah ID dan password sesuai
+                String query = "SELECT * FROM petugas WHERE id_petugas = ? AND password = ?";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, idPetugas);
+                ps.setString(2, password);
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Login berhasil!");
+
+                    // Tutup jendela Login dan buka TampilanUtama
+                    dispose(); // Menutup jendela Login
+                    TampilanUtama utama = new TampilanUtama(); // Pastikan kelas TampilanUtama tersedia
+                    utama.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Id_Petugas atau Password salah!");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void txtId_PetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId_PetugasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtId_PetugasActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Login().setVisible(true); // Memastikan konstruktor dipanggil dengan benar
             }
         });
     }
@@ -145,9 +171,11 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSimpan;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtId_Petugas;
     private javax.swing.JLabel txtNIM;
     private javax.swing.JLabel txtNama;
+    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+
 }
